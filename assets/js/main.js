@@ -25,7 +25,7 @@ const CONFIG = {
   // productIds vazio vale para todo o carrinho; datas usam YYYY-MM-DD e são inclusivas.
   coupons: [
     {
-      code: "BLACK50",
+      code: "50OFF",
       enabled: true,
       type: "percentage",
       value: 50,
