@@ -1,0 +1,87 @@
+/* Estilos de gp-domain-note. */
+/* Documentação: estilos da página, organizados por componente e comportamento responsivo. */
+.gp-domain-note {
+  margin: -4px 0 16px;
+  padding: 12px 14px;
+  border-left: 3px solid #147a50;
+  border-radius: 0 8px 8px 0;
+  background: #f2f8f4;
+  color: #536259;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+/* Estilos de gp-success-panel. */
+.gp-success-panel {
+  width: min(100%, 560px);
+}
+/* Estilos de gp-success-panel. */
+.gp-success-panel > p {
+  color: #536259;
+  line-height: 1.55;
+}
+/* Estilos de gp-success-summary. */
+.gp-success-summary {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid #e0e9e3;
+  border-radius: 12px;
+  background: #f8fbf9;
+}
+/* Estilos de gp-success-summary. */
+.gp-success-summary p {
+  margin: 0 0 8px;
+}
+/* Estilos de gp-success-summary, gp-success-order-id. */
+.gp-success-summary .gp-success-order-id {
+  color: #155b32;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+/* Estilos de gp-success-summary, gp-tracking-link. */
+.gp-success-summary .gp-tracking-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #155b32;
+  font-weight: 700;
+}
+/* Estilos de gp-success-actions. */
+.gp-success-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+/* Estilos de gp-success-actions, gp-success-action. */
+.gp-success-actions .gp-success-action {
+  display: block;
+  padding: 13px 18px;
+  border-radius: 10px;
+  background: var(--gp-green, #147a50);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+/* Estilos de gp-success-actions, gp-whatsapp-action. */
+.gp-success-actions .gp-whatsapp-action {
+  background: #16834a;
+}
+/* Estilos de gp-success-close-footer. */
+.gp-success-close-footer {
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid #cbd8d0;
+  background: #f8faf8;
+  color: #24342b;
+}
+/* Estilos de gpSuccessClose, gpSuccessCloseFooter. */
+#gpSuccessClose[hidden],
+#gpSuccessCloseFooter[hidden] {
+  display: none !important;
+}
+/* Ajustes responsivos para (max-width: 575px). */
+@media (max-width: 575px) {
+  /* Estilos de gp-success-summary. */
+  .gp-success-summary {
+    padding: 13px;
+  }
+}

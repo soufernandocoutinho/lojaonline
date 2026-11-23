@@ -1,0 +1,1540 @@
+/* Estilos de :root. */
+/* Documentação: estilos da página, organizados por componente e comportamento responsivo. */
+:root {
+  --gp-ink: #152a24;
+  --gp-muted: #64736c;
+  --gp-green: #009fff;
+  --gp-green-dark: #007cc7;
+  --gp-lime: #56c2ff;
+  --gp-cream: #f7f8f2;
+  --gp-line: #e3e9e1;
+  --gp-white: #fff;
+  --gp-radius: 1.35rem;
+  --gp-shadow: 0 18px 50px rgba(21, 42, 36, 0.09);
+}
+/* Estilos de *. */
+* {
+  box-sizing: border-box;
+}
+/* Estilos de html. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+/* Estilos de body. */
+body {
+  margin: 0;
+  color: var(--gp-ink);
+  background: #fff;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.65;
+}
+/* Estilos de a. */
+a {
+  color: var(--gp-green);
+}
+/* Estilos de a:focus-visible,. */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #56c2ff;
+  outline-offset: 3px;
+}
+/* Estilos de skip-link. */
+.skip-link {
+  position: absolute;
+  top: -5rem;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  border-radius: 0.5rem;
+}
+/* Estilos de skip-link. */
+.skip-link:focus {
+  top: 1rem;
+}
+/* Estilos de site-header. */
+.site-header {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(227, 233, 225, 0.85);
+  backdrop-filter: blur(12px);
+}
+/* Estilos de navbar. */
+.navbar {
+  --bs-navbar-padding-y: 0.85rem;
+}
+/* Estilos de brand-mark. */
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 50%;
+  object-fit: contain;
+}
+/* Estilos de brand-name. */
+.brand-name {
+  color: var(--gp-ink);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+/* Estilos de brand-caption. */
+.brand-caption {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--gp-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+/* Estilos de nav-link. */
+.nav-link {
+  color: #42564d;
+  font-weight: 600;
+  font-size: 0.93rem;
+}
+/* Estilos de nav-link, nav-link. */
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--gp-green);
+}
+/* Estilos de btn-gp. */
+.btn-gp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--gp-green);
+  border-radius: 999px;
+  background: var(--gp-green);
+  color: #fff;
+  font-weight: 750;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+/* Estilos de btn-gp. */
+.btn-gp:hover {
+  color: #fff;
+  background: var(--gp-green-dark);
+  border-color: var(--gp-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(31, 107, 82, 0.18);
+}
+/* Estilos de btn-gp-outline. */
+.btn-gp-outline {
+  color: var(--gp-green);
+  background: transparent;
+  border-color: #24536f;
+}
+/* Estilos de btn-gp-outline. */
+.btn-gp-outline:hover {
+  background: #102c3c;
+  color: var(--gp-green-dark);
+  border-color: #24536f;
+  box-shadow: none;
+}
+/* Estilos de hero. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4.5rem, 8vw, 7.6rem) 0 5rem;
+  background:
+    radial-gradient(
+      ellipse at 88% 12%,
+      rgba(0, 159, 255, 0.14),
+      transparent 29%
+    ),
+    linear-gradient(135deg, #f7f8f2 0%, #eef5ed 56%, #f9faf6 100%);
+}
+/* Estilos de eyebrow. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid #24485e;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--gp-green-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* Estilos de eyebrow-dot. */
+.eyebrow-dot {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: #009fff;
+}
+/* Estilos de h1,. */
+h1,
+h2,
+h3 {
+  color: var(--gp-ink);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+/* Estilos de h1. */
+h1 {
+  max-width: 760px;
+  margin: 1.2rem 0 1.3rem;
+  font-size: clamp(2.55rem, 5.7vw, 5rem);
+}
+/* Estilos de h1. */
+h1 span {
+  color: var(--gp-green);
+}
+/* Estilos de hero-copy. */
+.hero-copy {
+  max-width: 620px;
+  color: #52645b;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+}
+/* Estilos de hero-note. */
+.hero-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.35rem;
+  margin-top: 1.7rem;
+  color: #506258;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+/* Estilos de hero-note. */
+.hero-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+/* Estilos de check. */
+.check {
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: #15374b;
+  color: var(--gp-green-dark);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+/* Estilos de hero-carousel. */
+.hero-carousel {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(0, 159, 255, 0.2);
+  border-radius: var(--gp-radius);
+  background: #141815;
+  box-shadow: var(--gp-shadow);
+}
+/* Estilos de hero-carousel-frame. */
+.hero-carousel-frame {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(0, 159, 255, 0.14),
+      transparent 55%
+    ),
+    #141815;
+}
+/* Estilos de hero-carousel-image. */
+.hero-carousel-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* Estilos de hero-carousel-placeholder. */
+.hero-carousel-placeholder {
+  display: none;
+  padding: 1rem;
+  color: var(--gp-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+/* Estilos de hero-carousel-frame, image-missing, hero-carousel-placeholder. */
+.hero-carousel-frame.image-missing .hero-carousel-placeholder {
+  display: block;
+}
+/* Estilos de hero-carousel-frame, image-missing, hero-carousel-image. */
+.hero-carousel-frame.image-missing .hero-carousel-image {
+  display: none;
+}
+/* Estilos de hero-carousel, carousel-indicators. */
+.hero-carousel .carousel-indicators {
+  margin-bottom: 0.75rem;
+}
+/* Estilos de hero-carousel, carousel-indicators. */
+.hero-carousel .carousel-indicators [data-bs-target] {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin: 0 0.3rem;
+  border: 0;
+  border-radius: 50%;
+}
+/* Estilos de hero-carousel, carousel-control-prev, hero-carousel. */
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+  width: 15%;
+}
+/* Estilos de hero-carousel, carousel-control-prev-icon, hero-carousel. */
+.hero-carousel .carousel-control-prev-icon,
+.hero-carousel .carousel-control-next-icon {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+/* Estilos de section. */
+.section {
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+}
+/* Estilos de section-soft. */
+.section-soft {
+  background: var(--gp-cream);
+}
+/* Estilos de section-kicker. */
+.section-kicker {
+  margin-bottom: 0.8rem;
+  color: var(--gp-green);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+/* Estilos de section-heading. */
+.section-heading {
+  max-width: 720px;
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+/* Estilos de section-intro. */
+.section-intro {
+  max-width: 700px;
+  color: var(--gp-muted);
+  font-size: 1.08rem;
+}
+/* Estilos de product-card. */
+.product-card {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--gp-line);
+  border-radius: var(--gp-radius);
+  background: white;
+  box-shadow: 0 8px 28px rgba(21, 42, 36, 0.035);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+/* Estilos de product-card. */
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: #23618a;
+  box-shadow: var(--gp-shadow);
+}
+/* Estilos de product-art. */
+.product-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  overflow: hidden;
+  background: #142b3b;
+}
+/* Estilos de product-art. */
+.product-art::before {
+  content: "";
+  position: absolute;
+  width: 155px;
+  height: 155px;
+  border: 1px solid rgba(31, 107, 82, 0.16);
+  border-radius: 50%;
+}
+/* Estilos de product-art. */
+.product-art::after {
+  content: "";
+  position: absolute;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(31, 107, 82, 0.12);
+  border-radius: 50%;
+}
+/* Estilos de art-tile. */
+.art-tile {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 82px;
+  height: 100px;
+  border: 5px solid white;
+  border-radius: 1.1rem;
+  background: linear-gradient(145deg, #56c2ff, #168fda);
+  box-shadow: 0 14px 30px rgba(21, 42, 36, 0.15);
+  transform: rotate(-7deg);
+}
+/* Estilos de art-tile. */
+.art-tile svg {
+  width: 35px;
+  height: 35px;
+  stroke: #bde8ff;
+}
+/* Estilos de art-2. */
+.art-2 {
+  background: #f2eee5;
+}
+/* Estilos de art-2, art-tile. */
+.art-2 .art-tile {
+  background: linear-gradient(145deg, #f3d4a3, #e7a77c);
+  transform: rotate(6deg);
+}
+/* Estilos de art-3. */
+.art-3 {
+  background: #e9eef6;
+}
+/* Estilos de art-3, art-tile. */
+.art-3 .art-tile {
+  background: linear-gradient(145deg, #cbd8f5, #8eabc9);
+}
+/* Estilos de art-4. */
+.art-4 {
+  background: #f1eafa;
+}
+/* Estilos de art-4, art-tile. */
+.art-4 .art-tile {
+  background: linear-gradient(145deg, #e0d1f7, #b9a5df);
+  transform: rotate(5deg);
+}
+/* Estilos de art-5. */
+.art-5 {
+  background: #f9eae6;
+}
+/* Estilos de art-5, art-tile. */
+.art-5 .art-tile {
+  background: linear-gradient(145deg, #f6c9b5, #df9a9b);
+  transform: rotate(-4deg);
+}
+/* Estilos de product-body. */
+.product-body {
+  padding: 1.35rem;
+}
+/* Estilos de product-tag. */
+.product-tag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: var(--gp-green);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+/* Estilos de product-body. */
+.product-body h3 {
+  margin-bottom: 0.7rem;
+  font-size: 1.35rem;
+}
+/* Estilos de product-body. */
+.product-body p {
+  color: var(--gp-muted);
+  font-size: 0.94rem;
+}
+/* Estilos de text-link. */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  color: var(--gp-green);
+  font-weight: 800;
+  text-decoration: none;
+}
+/* Estilos de text-link. */
+.text-link:hover {
+  color: var(--gp-green-dark);
+  gap: 0.65rem;
+}
+/* Estilos de benefit-card. */
+.benefit-card {
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--gp-line);
+  border-radius: 1.15rem;
+  background: #fff;
+}
+/* Estilos de benefit-icon. */
+.benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-bottom: 1rem;
+  border-radius: 0.9rem;
+  background: #15374b;
+  color: var(--gp-green-dark);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+/* Estilos de benefit-card. */
+.benefit-card h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.16rem;
+  letter-spacing: -0.025em;
+}
+/* Estilos de benefit-card. */
+.benefit-card p {
+  margin-bottom: 0;
+  color: var(--gp-muted);
+  font-size: 0.93rem;
+}
+/* Estilos de steps. */
+.steps {
+  position: relative;
+}
+/* Estilos de step-number. */
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.2rem;
+  border-radius: 1rem;
+  background: var(--gp-lime);
+  color: var(--gp-ink);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+/* Estilos de step. */
+.step h3 {
+  margin-bottom: 0.65rem;
+  font-size: 1.25rem;
+}
+/* Estilos de step. */
+.step p {
+  max-width: 330px;
+  color: var(--gp-muted);
+}
+/* Estilos de statement-panel. */
+.statement-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  border-radius: 2rem;
+  background: var(--gp-ink);
+  color: #fff;
+}
+/* Estilos de statement-panel. */
+.statement-panel::after {
+  content: "";
+  position: absolute;
+  right: -5rem;
+  top: -8rem;
+  width: 22rem;
+  height: 22rem;
+  border: 1px solid rgba(217, 241, 125, 0.25);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px rgba(217, 241, 125, 0.035),
+    0 0 0 70px rgba(217, 241, 125, 0.025);
+}
+/* Estilos de statement-panel. */
+.statement-panel h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  color: #fff;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+}
+/* Estilos de statement-panel. */
+.statement-panel p {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+  color: #c6d4cd;
+}
+/* Estilos de statement-panel, btn-gp. */
+.statement-panel .btn-gp {
+  position: relative;
+  z-index: 1;
+  color: var(--gp-ink);
+  background: var(--gp-lime);
+  border-color: var(--gp-lime);
+}
+/* Estilos de statement-panel, btn-gp. */
+.statement-panel .btn-gp:hover {
+  color: var(--gp-ink);
+  background: #56c2ff;
+  border-color: #56c2ff;
+}
+/* Estilos de faq-wrap. */
+.faq-wrap {
+  max-width: 900px;
+}
+/* Estilos de accordion-item. */
+.accordion-item {
+  border: 1px solid var(--gp-line);
+  border-radius: 0.9rem !important;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+/* Estilos de accordion-button. */
+.accordion-button {
+  padding: 1.2rem 1.25rem;
+  color: var(--gp-ink);
+  font-weight: 750;
+  box-shadow: none !important;
+}
+/* Estilos de accordion-button, collapsed. */
+.accordion-button:not(.collapsed) {
+  background: #102c3c;
+  color: var(--gp-green-dark);
+}
+/* Estilos de accordion-body. */
+.accordion-body {
+  color: var(--gp-muted);
+}
+/* Estilos de contact-panel. */
+.contact-panel {
+  padding: 2rem;
+  border: 1px solid var(--gp-line);
+  border-radius: var(--gp-radius);
+  background: white;
+}
+/* Estilos de contact-panel. */
+.contact-panel p {
+  color: var(--gp-muted);
+}
+/* Estilos de site-footer. */
+.site-footer {
+  padding: 3.5rem 0 1.5rem;
+  background: #081a26;
+  color: #d0ddd6;
+}
+/* Estilos de site-footer, brand-name. */
+.site-footer .brand-name {
+  color: #fff;
+}
+/* Estilos de site-footer, brand-caption. */
+.site-footer .brand-caption {
+  color: #a7bbb0;
+}
+/* Estilos de site-footer. */
+.site-footer a {
+  color: #d0ddd6;
+  text-decoration: none;
+}
+/* Estilos de site-footer. */
+.site-footer a:hover {
+  color: var(--gp-lime);
+}
+/* Estilos de footer-heading. */
+.footer-heading {
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+/* Estilos de footer-links. */
+.footer-links {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+/* Estilos de footer-bottom. */
+.footer-bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: #a7bbb0;
+  font-size: 0.82rem;
+}
+/* Estilos de muted-note. */
+.muted-note {
+  color: var(--gp-muted);
+  font-size: 0.84rem;
+}
+/* Ajustes responsivos para (max-width: 991.98px). */
+@media (max-width: 991.98px) {
+  /* Estilos de hero-carousel. */
+  .hero-carousel {
+    margin-top: 1.8rem;
+  }
+}
+/* Ajustes responsivos para (max-width: 575.98px). */
+@media (max-width: 575.98px) {
+  /* Estilos de hero. */
+  .hero {
+    padding-top: 3.6rem;
+  }
+  /* Estilos de contact-panel. */
+  .contact-panel {
+    padding: 1.35rem;
+  }
+}
+/* Ajustes responsivos para (prefers-reduced-motion: reduce). */
+@media (prefers-reduced-motion: reduce) {
+  /* Estilos de html. */
+  html {
+    scroll-behavior: auto;
+  }
+  /* Estilos de *,. */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+/* Estilos de :root. */
+/* Tema escuro editorial: referência visual Black Friday, sem sugerir desconto não confirmado. */
+:root {
+  color-scheme: dark;
+  --gp-ink: #f4f5f2;
+  --gp-muted: #a7b0aa;
+  --gp-green: #009fff;
+  --gp-green-dark: #007cc7;
+  --gp-lime: #56c2ff;
+  --gp-cream: #101311;
+  --gp-line: #2b302c;
+  --gp-white: #171a18;
+  --gp-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);
+}
+/* Estilos de body. */
+body {
+  color: var(--gp-ink);
+  background: #0b0d0c;
+}
+/* Estilos de a. */
+a {
+  color: var(--gp-green);
+}
+/* Estilos de site-header. */
+.site-header {
+  background: rgba(12, 14, 13, 0.94);
+  border-bottom-color: #292e2a;
+}
+/* Estilos de brand-name. */
+.brand-name,
+h1,
+h2,
+h3 {
+  color: #f4f5f2;
+}
+/* Estilos de brand-caption, nav-link. */
+.brand-caption,
+.nav-link {
+  color: #a7b0aa;
+}
+/* Estilos de nav-link, nav-link. */
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--gp-green);
+}
+/* Estilos de brand-mark. */
+.brand-mark {
+  background: transparent;
+}
+/* Estilos de btn-gp. */
+.btn-gp {
+  color: #10130d;
+  border-color: var(--gp-green);
+  background: var(--gp-green);
+}
+/* Estilos de btn-gp. */
+.btn-gp:hover {
+  color: #10130d;
+  background: var(--gp-green-dark);
+  border-color: var(--gp-green-dark);
+}
+/* Estilos de btn-gp-outline. */
+.btn-gp-outline {
+  color: var(--gp-green);
+  background: transparent;
+  border-color: #4b574d;
+}
+/* Estilos de btn-gp-outline. */
+.btn-gp-outline:hover {
+  color: #10130d;
+  background: var(--gp-green);
+  border-color: var(--gp-green);
+}
+/* Estilos de hero. */
+.hero {
+  background:
+    radial-gradient(
+      ellipse at 88% 12%,
+      rgba(0, 159, 255, 0.16),
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 8% 90%,
+      rgba(120, 145, 95, 0.08),
+      transparent 34%
+    ),
+    linear-gradient(135deg, #0d100e 0%, #141815 56%, #0b0d0c 100%);
+}
+/* Estilos de eyebrow. */
+.eyebrow {
+  color: var(--gp-green);
+  border-color: #24485e;
+  background: rgba(25, 31, 25, 0.8);
+}
+/* Estilos de hero-copy, hero-note. */
+.hero-copy,
+.hero-note {
+  color: #b5beb7;
+}
+/* Estilos de check. */
+.check {
+  background: #15374b;
+  color: var(--gp-green);
+}
+/* Estilos de section-soft. */
+.section-soft {
+  background: #111412;
+}
+/* Estilos de section-kicker, product-tag, text-link. */
+.section-kicker,
+.product-tag,
+.text-link {
+  color: var(--gp-green);
+}
+/* Estilos de section-intro, product-body. */
+.section-intro,
+.product-body p {
+  color: #a7b0aa;
+}
+/* Estilos de product-card, benefit-card, step. */
+.product-card,
+.benefit-card,
+.step,
+.contact-panel {
+  background: #171a18;
+  border-color: #2c322d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+}
+/* Estilos de product-card. */
+.product-card:hover {
+  border-color: #23618a;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+}
+/* Estilos de product-art. */
+.product-art {
+  background: #172c3a;
+}
+/* Estilos de art-2. */
+.art-2 {
+  background: #29241d;
+}
+/* Estilos de art-3. */
+.art-3 {
+  background: #202631;
+}
+/* Estilos de art-4. */
+.art-4 {
+  background: #292230;
+}
+/* Estilos de art-5. */
+.art-5 {
+  background: #2b211f;
+}
+/* Estilos de art-tile. */
+.art-tile {
+  border-color: #24485e;
+}
+/* Estilos de benefit-icon, step-number. */
+.benefit-icon,
+.step-number {
+  background: #15374b;
+  color: var(--gp-green);
+}
+/* Estilos de statement-panel. */
+.statement-panel {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(0, 159, 255, 0.14), transparent 35%),
+    linear-gradient(135deg, #1a211a, #111512);
+  border-color: #24485e;
+}
+/* Estilos de statement-panel, section-kicker. */
+.statement-panel p:not(.section-kicker) {
+  color: #b5beb7;
+}
+/* Estilos de accordion-item. */
+.accordion-item {
+  color: #e7ebe7;
+  background: #171a18;
+  border-color: #2b302c;
+}
+/* Estilos de accordion-button. */
+.accordion-button {
+  color: #f1f4ef;
+  background: #171a18;
+}
+/* Estilos de accordion-button, collapsed. */
+.accordion-button:not(.collapsed) {
+  color: var(--gp-green);
+  background: #102c3c;
+  box-shadow: inset 0 -1px 0 #24485e;
+}
+/* Estilos de accordion-button. */
+.accordion-button::after {
+  filter: invert(1);
+}
+/* Estilos de accordion-body. */
+.accordion-body {
+  color: #b5beb7;
+}
+/* Estilos de contact-panel. */
+.contact-panel {
+  background: #171a18;
+}
+/* Estilos de muted-note. */
+.muted-note {
+  color: #9da79f;
+}
+/* Estilos de site-footer. */
+.site-footer {
+  background: #070908;
+  color: #c5cdc7;
+  border-top: 1px solid #252a26;
+}
+/* Estilos de site-footer. */
+.site-footer a {
+  color: #c5cdc7;
+}
+/* Estilos de site-footer. */
+.site-footer a:hover {
+  color: var(--gp-green);
+}
+/* Estilos de footer-bottom. */
+.footer-bottom {
+  border-top-color: #292e2a;
+  color: #8e9991;
+}
+/* Estilos de skip-link. */
+.skip-link {
+  color: #10130d;
+}
+/* Estilos de price. */
+.price {
+  color: var(--gp-green);
+  font-size: 1.55rem;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+/* Estilos de price-note. */
+.price-note {
+  color: #9da79f;
+  font-size: 0.82rem;
+}
+/* Estilos de availability-note. */
+.availability-note {
+  border: 1px solid #3a4139;
+  border-radius: 0.9rem;
+  background: #151815;
+  color: #b5beb7;
+  padding: 1rem 1.1rem;
+}
+/* Ajustes responsivos para (prefers-reduced-motion: reduce). */
+@media (prefers-reduced-motion: reduce) {
+  /* Estilos de product-card, btn-gp. */
+  .product-card:hover,
+  .btn-gp:hover {
+    transform: none;
+  }
+}
+/* Estilos de product-config. */
+/* Configuração diretamente nos cards de solução */
+.product-config {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--gp-line);
+}
+/* Estilos de config-grid. */
+.config-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+}
+/* Estilos de product-config, form-label. */
+.product-config .form-label {
+  color: var(--gp-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+/* Estilos de product-config, form-select. */
+.product-config .form-select {
+  min-height: 44px;
+  color: var(--gp-ink);
+  background-color: #171a18;
+  border-color: #3b5362;
+}
+/* Estilos de product-config, form-select. */
+.product-config .form-select:focus {
+  border-color: #009fff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 159, 255, 0.2);
+}
+.product-complements {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.9rem;
+}
+.product-config .complement-heading {
+  margin: 0.35rem 0 0;
+}
+.complement-options {
+  display: grid;
+  gap: 0.55rem;
+}
+.complement-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--gp-ink);
+  font-size: 0.87rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.complement-option input {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  accent-color: var(--gp-green);
+}
+/* Estilos de config-footer. */
+.config-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.85rem;
+  margin: 1rem 0 0.5rem;
+}
+/* Estilos de price-label. */
+.price-label {
+  color: var(--gp-muted);
+  font-size: 0.78rem;
+}
+/* Estilos de product-config, price. */
+.product-config .price {
+  font-size: 1.7rem;
+}
+/* Estilos de product-config, btn-gp. */
+.product-config .btn-gp {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+}
+/* Ajustes responsivos para (min-width: 480px). */
+@media (min-width: 480px) {
+  /* Estilos de config-grid. */
+  .config-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Ajustes responsivos para (min-width: 1200px). */
+@media (min-width: 1200px) {
+  /* Estilos de config-footer. */
+  .config-footer {
+    align-items: flex-start;
+  }
+}
+/* Estilos de solucoes, row, g-4. */
+/* Cards de solução padronizados: altura consistente e CTA alinhado ao rodapé. */
+#solucoes .row.g-4 > [class*="col-"] {
+  display: flex;
+}
+/* Estilos de product-card. */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+/* Estilos de product-art. */
+.product-art {
+  min-height: 190px;
+  height: 190px;
+  flex: 0 0 190px;
+}
+/* Estilos de product-art, product-image. */
+.product-art .product-image {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* Estilos de product-art, has-image, art-tile. */
+.product-art.has-image .art-tile,
+.product-art.has-image::before,
+.product-art.has-image::after {
+  display: none;
+}
+/* Estilos de product-body. */
+.product-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+}
+/* Estilos de product-body. */
+.product-body > p {
+  flex: 1 0 auto;
+}
+/* Estilos de product-body, whatsapp-fixed. */
+.product-body > .whatsapp-fixed {
+  margin-top: auto;
+}
+/* Estilos de product-body, product-config. */
+.product-body > .product-config {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+/* Estilos de product-config, config-footer. */
+.product-config .config-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+/* Estilos de product-config, price-note. */
+.product-config .price-note {
+  margin-top: 0.35rem;
+}
+/* Estilos de steps. */
+.steps > [class*="col-"] {
+  display: flex;
+}
+/* Estilos de step. */
+.step {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--gp-line);
+  border-radius: 1.15rem;
+}
+/* Estilos de step. */
+.step p {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+/* Ajustes responsivos para (max-width: 575.98px). */
+@media (max-width: 575.98px) {
+  /* Estilos de product-art. */
+  .product-art {
+    height: 170px;
+    min-height: 170px;
+    flex-basis: 170px;
+  }
+}
+/* Estilos de gp-cart-launcher. */
+/* Carrinho e finalização NextGo Orders */
+.gp-cart-launcher {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1030;
+  display: none;
+  filter: drop-shadow(0 8px 18px rgba(12, 35, 28, 0.2));
+}
+/* Estilos de gp-cart-launcher, is-visible. */
+.gp-cart-launcher.is-visible {
+  display: block;
+}
+/* Estilos de gp-cart-launcher, btn-gp. */
+.gp-cart-launcher .btn-gp {
+  border: 0;
+  cursor: pointer;
+  padding: 14px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  background: var(--gp-green, #147a50);
+  color: #fff;
+}
+/* Estilos de gp-modal. */
+.gp-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+/* Estilos de gp-modal, is-open. */
+.gp-modal.is-open {
+  display: flex;
+}
+/* Estilos de gp-modal-backdrop. */
+.gp-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 18, 0.64);
+}
+/* Estilos de gp-modal-panel. */
+.gp-modal-panel {
+  position: relative;
+  background: #fff;
+  color: #17231e;
+  border-radius: 20px;
+  width: min(100%, 680px);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 28px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+/* Estilos de gp-modal-panel. */
+.gp-modal-panel h2 {
+  font-size: 1.7rem;
+  margin: 0 42px 18px 0;
+}
+/* Estilos de gp-modal-close. */
+.gp-modal-close {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  border: 0;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+/* Estilos de gp-cart-item. */
+.gp-cart-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 14px;
+  border: 1px solid #c4cfd7;
+  border-radius: 12px;
+  background: #f0f4f7;
+  color: #172a35;
+}
+/* Estilos de gp-cart-item, gp-cart-item. */
+.gp-cart-item strong,
+.gp-cart-item small {
+  display: block;
+}
+/* Estilos de gp-cart-item. */
+.gp-cart-item small {
+  color: #3f515d;
+  margin-top: 4px;
+}
+/* Estilos de gp-item-price. */
+.gp-item-price {
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Estilos de gp-item-controls. */
+.gp-item-controls {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Estilos de gp-item-controls. */
+.gp-item-controls button {
+  border: 1px solid #9aaab4;
+  background: #e1e8ed;
+  color: #172a35;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.gp-item-controls button:hover {
+  background: #d1dce3;
+}
+/* Estilos de gp-item-controls, gp-remove-item. */
+.gp-item-controls .gp-remove-item {
+  margin-left: auto;
+  color: #9b2c2c;
+}
+/* Estilos de gp-total-row. */
+.gp-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  padding: 18px 0;
+  border-bottom: 1px solid #c4cfd7;
+  color: #172a35;
+}
+/* Estilos de gp-modal-panel. */
+.gp-modal-panel form h3 {
+  font-size: 1.1rem;
+  margin: 22px 0 12px;
+}
+/* Estilos de gp-modal-panel. */
+.gp-modal-panel form label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0;
+}
+/* Estilos de gp-modal-panel, gp-modal-panel. */
+.gp-modal-panel form input,
+.gp-modal-panel form select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #ccd6cf;
+  border-radius: 10px;
+  background: #fff;
+  color: #17231e;
+}
+/* Estilos de gp-privacy-note, gp-empty-cart. */
+.gp-privacy-note,
+.gp-empty-cart {
+  font-size: 0.9rem;
+  color: #68756e;
+}
+/* Estilos de gp-modal-panel, btn-gp. */
+.gp-modal-panel form .btn-gp {
+  border: 0;
+  cursor: pointer;
+  padding: 13px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: var(--gp-green, #147a50);
+  color: #fff;
+}
+/* Estilos de gp-modal-panel, btn-gp. */
+.gp-modal-panel form .btn-gp:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+/* Estilos de gpCheckoutMessage. */
+#gpCheckoutMessage {
+  margin: 14px 0 0;
+  overflow-wrap: anywhere;
+}
+/* Estilos de gp-success-message. */
+.gp-success-message {
+  padding: 12px;
+  background: #eaf8ef;
+  border-radius: 10px;
+  color: #155b32;
+}
+/* Estilos de gp-success-message. */
+.gp-success-message a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #155b32;
+  font-weight: 700;
+}
+/* Estilos de gp-error-message. */
+.gp-error-message {
+  padding: 12px;
+  background: #fff0ef;
+  border-radius: 10px;
+  color: #9b2620;
+}
+/* Estilos de gp-modal-open. */
+.gp-modal-open {
+  overflow: hidden;
+}
+.gp-config-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.gp-config-modal.is-open {
+  display: flex;
+}
+.gp-config-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 18, 0.68);
+}
+.gp-config-panel {
+  position: relative;
+  width: min(100%, 620px);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #f7f9fb;
+  color: var(--gp-ink);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+.gp-config-panel h2 {
+  margin: 0 42px 0.6rem 0;
+  font-size: 1.65rem;
+}
+.gp-config-close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--gp-ink);
+  font-size: 2rem;
+  cursor: pointer;
+}
+.gp-config-progress {
+  margin: 0 0 0.4rem;
+  color: var(--gp-muted);
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+.gp-config-question {
+  margin-bottom: 1.1rem;
+  color: var(--gp-muted);
+}
+.gp-config-choices {
+  display: grid;
+  gap: 0.65rem;
+}
+.gp-config-choice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid #9aaab4;
+  border-radius: 0.8rem;
+  background: #edf2f6;
+  color: #172a35;
+  cursor: pointer;
+}
+.gp-config-choice:has(input:checked) {
+  border-color: #176b9f;
+  background: #dcecf7;
+  box-shadow: 0 0 0 1px #176b9f;
+}
+.gp-config-choice input {
+  margin-top: 0.25rem;
+  accent-color: var(--gp-green);
+}
+.gp-config-choice span,
+.gp-config-choice small {
+  display: block;
+}
+.gp-config-choice small {
+  margin-top: 0.2rem;
+  color: #40535f;
+}
+.gp-config-choice b {
+  white-space: nowrap;
+}
+.gp-config-total {
+  margin: 1.1rem 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.gp-config-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.gp-config-actions button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+}
+.gp-config-error {
+  margin: 0.8rem 0 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #e4a3a0;
+  border-radius: 0.6rem;
+  background: #fff0ef;
+  color: #a3211b;
+  font-weight: 700;
+}
+/* Ajustes responsivos para (max-width:575px). */
+@media (max-width: 575px) {
+  /* Estilos de gp-modal. */
+  .gp-modal {
+    padding: 8px;
+  }
+  /* Estilos de gp-modal-panel. */
+  .gp-modal-panel {
+    padding: 22px 16px;
+    border-radius: 16px;
+    max-height: 96vh;
+  }
+  .gp-config-panel {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+  /* Estilos de gp-cart-launcher. */
+  .gp-cart-launcher {
+    right: 12px;
+    bottom: 12px;
+  }
+  /* Estilos de gp-cart-launcher, btn-gp. */
+  .gp-cart-launcher .btn-gp {
+    padding: 12px 16px;
+  }
+}
+/* Estilos de gp-coupon-row. */
+.gp-coupon-row {
+  margin: 14px 0;
+  padding: 12px;
+  background: #f7faf8;
+  border-radius: 10px;
+}
+/* Estilos de gp-coupon-row. */
+.gp-coupon-row > div {
+  display: flex;
+  gap: 8px;
+}
+/* Estilos de gp-coupon-row. */
+.gp-coupon-row input {
+  flex: 1;
+}
+/* Estilos de gp-coupon-row. */
+.gp-coupon-row button {
+  flex: none;
+  padding: 10px 14px;
+}
+/* Estilos de gp-coupon-row, gp-freight-note. */
+.gp-coupon-row p,
+.gp-freight-note {
+  font-size: 0.9rem;
+  color: #536259;
+  margin: 8px 0;
+}
+/* Estilos de gp-freight-note. */
+.gp-freight-note {
+  padding: 10px 12px;
+  background: #eef8f1;
+  border-radius: 8px;
+}
