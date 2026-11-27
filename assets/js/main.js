@@ -8,31 +8,131 @@ const CONFIG = {
   apiUrl: "https://api.nextgocard.com.br",
   orderApiUrl: "https://api.nextgoorders.com",
   statusUrl: "https://novo.nextgoorders.com/history-status/",
-  fixedPrices: {
-    "Cartão de Visitas Digital": 350,
-    SmallBio: 350,
-    "Convite Digital": 350,
-  },
   productIds: {
     "Cardápio Digital": 1548725,
     "Catálogo Digital": 1548653,
     "Cartão de Visitas Digital": 1494441,
     SmallBio: 1494440,
     "Convite Digital": 1494444,
+    "Sistema NextGo": 1886447,
+    "Digisat Conecta": 1883932,
+    "Digisat Web": 1883933,
+    "Digisat G6 Full": 1883931,
+    "Digisat G6 Pré-Pago": 1886080,
+    "Digisat SaaS": 1886077,
+    "Digisat Pedir Menu": 1883934,
+    "Migração Digisat G6 Full": 1886078,
+    "Renovação Digisat G6 Full": 1886079,
   },
   freight: { id: 5036, type: "free", price: 0 },
-  // Cadastre cupons aqui. type: "percentage" usa percentual; "fixed" usa valor em reais.
-  // productIds vazio vale para todo o carrinho; datas usam YYYY-MM-DD e são inclusivas.
+  // Cupons ativos copiados do catálogo legado; datas vazias indicam validade contínua.
   coupons: [
     {
+      code: "PROMOPIX",
+      paymentTypes: ["Pix", "Boleto"],
+      defaultPaymentType: "Pix",
+      enabled: true,
+      type: "percentage",
+      value: 40,
+      minimum: 2000,
+      validFrom: null,
+      validUntil: null,
+      productIds: [
+        1548725, 1548653, 1494441, 1494440, 1494444, 1886447, 1883932,
+        1883933, 1883931, 1886080, 1886077, 1883934, 1886078, 1886079,
+      ],
+      maxDiscount: null,
+    },
+    {
+      code: "PROMO12X",
+      paymentTypes: ["Cartão de Crédito"],
+      defaultPaymentType: "Cartão de Crédito",
+      enabled: true,
+      type: "percentage",
+      value: 20,
+      minimum: 1200,
+      validFrom: null,
+      validUntil: null,
+      productIds: [
+        1548725, 1548653, 1494441, 1494440, 1494444, 1886447, 1883932,
+        1883933, 1883931, 1886080, 1886077, 1883934, 1886078, 1886079,
+      ],
+      maxDiscount: null,
+    },
+    {
+      code: "PROMO60",
+      suggestInCart: false,
+      enabled: true,
+      type: "percentage",
+      value: 60,
+      minimum: 499,
+      validFrom: null,
+      validUntil: null,
+      productIds: [1548725, 1548653],
+      maxDiscount: null,
+    },
+    {
       code: "50OFF",
+      suggestInCart: false,
       enabled: true,
       type: "percentage",
       value: 50,
-      minimum: 0,
+      minimum: 149,
       validFrom: null,
       validUntil: null,
-      productIds: [],
+      productIds: [1548725, 1548653, 1494441, 1494440, 1494444, 1886447],
+      maxDiscount: null,
+    },
+    {
+      code: "MF8BN2",
+      paymentTypes: ["Pix", "Boleto"],
+      defaultPaymentType: "Pix",
+      enabled: true,
+      type: "fixed",
+      value: 50,
+      minimum: 350,
+      validFrom: null,
+      validUntil: null,
+      productIds: [1494444],
+      maxDiscount: null,
+    },
+    {
+      code: "X5TNRI",
+      paymentTypes: ["Pix", "Boleto"],
+      defaultPaymentType: "Pix",
+      enabled: true,
+      type: "fixed",
+      value: 79,
+      minimum: 499.9,
+      validFrom: null,
+      validUntil: null,
+      productIds: [1494441, 1494440],
+      maxDiscount: null,
+    },
+    {
+      code: "5UH5TY",
+      paymentTypes: ["Pix", "Boleto"],
+      defaultPaymentType: "Pix",
+      enabled: true,
+      type: "fixed",
+      value: 50,
+      minimum: 350,
+      validFrom: null,
+      validUntil: null,
+      productIds: [1494440, 1494441],
+      maxDiscount: null,
+    },
+    {
+      code: "K71ZOK",
+      paymentTypes: ["Pix", "Boleto"],
+      defaultPaymentType: "Pix",
+      enabled: true,
+      type: "fixed",
+      value: 100,
+      minimum: 499,
+      validFrom: null,
+      validUntil: null,
+      productIds: [1548653, 1548725],
       maxDiscount: null,
     },
   ],
@@ -52,6 +152,140 @@ const cart = [];
 let activeCoupon = null;
 let activeDiscount = 0;
 const byId = (id) => catalog.find((p) => p.id === id);
+const SAAS_PRODUCT_ID = 1886077;
+const SAAS_BILLING_STEP_IDS = new Set([222799, 222800, 222801]);
+const DIGISAT_CONECTA_PRODUCT_ID = 1883932;
+const DIGISAT_CONECTA_STEP_ID = 222163;
+const DIGISAT_CONECTA_PACKAGE_STEP_ID = 223920;
+const DIGISAT_CONECTA_MONTHLY_COMPLEMENT_IDS = new Set([1420673, 1420674]);
+const DIGISAT_CONECTA_PLAN_DURATIONS = new Map([
+  [1420674, 12],
+  [1420673, 12],
+  [1420668, 12],
+  [1420667, 12],
+  [1420669, 6],
+  [1420670, 6],
+  [1420671, 3],
+  [1420672, 3],
+]);
+
+function getDigisatConectaPlanId(product, selectedIds = []) {
+  if (Number(product?.id) !== DIGISAT_CONECTA_PRODUCT_ID) return null;
+  const planStep = product.complementSteps?.find(
+    (step) => Number(step.id) === DIGISAT_CONECTA_STEP_ID,
+  );
+  return planStep?.complements.find((complement) =>
+    selectedIds.includes(complement.id),
+  )?.id;
+}
+
+function complementBillingMultiplier(product, step, complement, planId) {
+  const isSaasMonthlyPrice =
+    Number(product?.id) === SAAS_PRODUCT_ID &&
+    SAAS_BILLING_STEP_IDS.has(Number(step?.id));
+  if (
+    Number(product?.id) === DIGISAT_CONECTA_PRODUCT_ID &&
+    Number(step?.id) === DIGISAT_CONECTA_PACKAGE_STEP_ID
+  ) {
+    return DIGISAT_CONECTA_PLAN_DURATIONS.get(Number(planId)) || 1;
+  }
+  const isConectaMonthlyPrice =
+    Number(product?.id) === DIGISAT_CONECTA_PRODUCT_ID &&
+    Number(step?.id) === DIGISAT_CONECTA_STEP_ID &&
+    DIGISAT_CONECTA_MONTHLY_COMPLEMENT_IDS.has(Number(complement?.id));
+  return isSaasMonthlyPrice || isConectaMonthlyPrice ? 12 : 1;
+}
+const DIGISAT_PRODUCT_IDS = new Set([1883931, SAAS_PRODUCT_ID]);
+const DIGISAT_SYSTEM_STEP_IDS = new Set([222159, 222799]);
+const DIGISAT_MODULE_STEP_IDS = new Set([222160, 222800]);
+const DIGISAT_USER_STEP_IDS = new Set([222161, 222801]);
+
+function normalizeProductText(value) {
+  return stripHtml(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function getDigisatSystemType(complement) {
+  const title = normalizeProductText(complement?.title);
+  if (title.includes("administrador")) return "administrador";
+  if (title.includes("gerencial")) return "gerencial";
+  if (title.includes("comercial")) return "comercial";
+  if (title.includes("mei")) return "mei";
+  if (title.includes("digisat web")) return "web";
+  if (title.includes("pedir menu")) return "menu";
+  return null;
+}
+
+function getDigisatSystemSelection(product, selected) {
+  const systemStep = product.complementSteps?.find((step) =>
+    DIGISAT_SYSTEM_STEP_IDS.has(Number(step.id)),
+  );
+  const selectedSystemId = selected[0]?.[0];
+  return systemStep?.complements.find(
+    (complement) => complement.id === selectedSystemId,
+  );
+}
+
+function isDigisatComplementAvailable(product, step, complement, selected) {
+  if (!DIGISAT_PRODUCT_IDS.has(Number(product?.id))) return true;
+  const system = getDigisatSystemSelection(product, selected);
+  if (!system || DIGISAT_SYSTEM_STEP_IDS.has(Number(step.id))) return true;
+
+  const systemType = getDigisatSystemType(system);
+  if (DIGISAT_MODULE_STEP_IDS.has(Number(step.id))) {
+    const title = normalizeProductText(complement.title);
+    if (["web", "menu"].includes(systemType)) return false;
+    if (systemType === "administrador") {
+      return /pdv off.?line|power b\.?i\.?|tunel/.test(title);
+    }
+    if (/power b\.?i\.?/.test(title)) {
+      return ["mei", "comercial", "gerencial"].includes(systemType);
+    }
+    const matches = title.match(/\(([^)]*)\)/g) || [];
+    const eligibleTypes = matches.flatMap((group) =>
+      group
+        .slice(1, -1)
+        .split("/")
+        .map((name) => normalizeProductText(name).trim()),
+    );
+    if (eligibleTypes.includes("todos os sistemas")) {
+      return ["mei", "comercial", "gerencial"].includes(systemType);
+    }
+    return eligibleTypes.includes(systemType);
+  }
+
+  if (DIGISAT_USER_STEP_IDS.has(Number(step.id))) {
+    const title = normalizeProductText(complement.title);
+    if (title.includes("administrador")) return systemType === "administrador";
+    if (title.includes("gerencial")) return systemType === "gerencial";
+    if (title.includes("digisat web")) return systemType === "web";
+    return false;
+  }
+  return true;
+}
+
+function getVisibleProductComplements(product, step, selected) {
+  return (step.complements || []).filter(
+    (complement) =>
+      (!complement.supply_control || Number(complement.supply) > 0) &&
+      isDigisatComplementAvailable(product, step, complement, selected),
+  );
+}
+
+function getVisibleWizardStepIndexes(product, steps, selected) {
+  return steps.reduce((visibleIndexes, step, index) => {
+    if (
+      index === 0 ||
+      getVisibleProductComplements(product, step, selected).length > 0
+    ) {
+      visibleIndexes.push(index);
+    }
+    return visibleIndexes;
+  }, []);
+}
+
 let productWizard = null;
 function createProductWizard() {
   const overlay = document.createElement("div");
@@ -77,19 +311,35 @@ function createProductWizard() {
     node.addEventListener("click", closeProductWizard),
   );
   overlay.querySelector("#gpConfigBack").addEventListener("click", () => {
-    if (productWizard?.step > 0) {
-      productWizard.step--;
+    const visibleIndexes = getVisibleWizardStepIndexes(
+      productWizard.product,
+      productWizard.steps,
+      productWizard.selected,
+    );
+    const previousIndexes = visibleIndexes.filter(
+      (index) => index < productWizard.step,
+    );
+    const previousIndex = previousIndexes[previousIndexes.length - 1];
+    if (previousIndex !== undefined) {
+      productWizard.step = previousIndex;
       renderProductWizard();
     } else closeProductWizard();
   });
   overlay.querySelector("#gpConfigNext").addEventListener("click", () => {
-    if (!productWizard?.selected[productWizard.step]) {
+    const current = productWizard?.steps[productWizard.step];
+    const chosen = productWizard?.selected[productWizard.step] || [];
+    if (chosen.filter((id) => id > 0).length < Number(current?.minAmount || 0)) {
       productWizard.validationVisible = true;
       renderProductWizard();
       return;
     }
-    if (productWizard.step < productWizard.steps.length - 1) {
-      productWizard.step++;
+    const nextIndex = getVisibleWizardStepIndexes(
+      productWizard.product,
+      productWizard.steps,
+      productWizard.selected,
+    ).find((index) => index > productWizard.step);
+    if (nextIndex !== undefined) {
+      productWizard.step = nextIndex;
       renderProductWizard();
       return;
     }
@@ -98,8 +348,38 @@ function createProductWizard() {
     addConfiguredProduct(button, selected);
   });
   overlay.querySelector("#gpConfigChoices").addEventListener("change", (event) => {
-    const selectedId = Number(event.target.value);
-    productWizard.selected[productWizard.step] = selectedId;
+    const step = productWizard.steps[productWizard.step];
+    const currentSelection = productWizard.selected[productWizard.step] || [];
+    if (event.target.type === "radio") {
+      productWizard.selected[productWizard.step] = [Number(event.target.value)];
+      if (
+        DIGISAT_PRODUCT_IDS.has(Number(productWizard.product.id)) &&
+        DIGISAT_SYSTEM_STEP_IDS.has(Number(step.id))
+      ) {
+        productWizard.steps.forEach((laterStep, index) => {
+          if (index <= productWizard.step) return;
+          const availableIds = getVisibleProductComplements(
+            productWizard.product,
+            laterStep,
+            productWizard.selected,
+          ).map((complement) => complement.id);
+          productWizard.selected[index] = (
+            productWizard.selected[index] || []
+          ).filter((id) => availableIds.includes(id));
+        });
+      }
+    } else {
+      const selectedId = Number(event.target.value);
+      const nextSelection = event.target.checked
+        ? [...currentSelection, selectedId]
+        : currentSelection.filter((id) => id !== selectedId);
+      const maxAmount = Number(step.maxAmount || 0);
+      if (maxAmount > 0 && nextSelection.length > maxAmount) {
+        event.target.checked = false;
+      } else {
+        productWizard.selected[productWizard.step] = nextSelection;
+      }
+    }
     productWizard.validationVisible = false;
     renderProductWizard();
     overlay.querySelector("#gpConfigChoices input:checked")?.focus();
@@ -119,19 +399,24 @@ function renderProductWizard() {
   const { product, steps, step, selected } = productWizard;
   const overlay = document.querySelector(".gp-config-modal");
   const current = steps[step];
+  const visibleIndexes = getVisibleWizardStepIndexes(product, steps, selected);
+  const visibleStepNumber = visibleIndexes.indexOf(step) + 1;
   overlay.querySelector("#gpConfigTitle").textContent = stripHtml(product.title);
-  overlay.querySelector("#gpConfigProgress").textContent = `Etapa ${step + 1} de ${steps.length}`;
+  overlay.querySelector("#gpConfigProgress").textContent = `Etapa ${visibleStepNumber} de ${visibleIndexes.length}`;
   overlay.querySelector("#gpConfigQuestion").textContent = current.title;
   const choices = overlay.querySelector("#gpConfigChoices");
   choices.replaceChildren();
-  if (Number(current.minAmount || 0) === 0) {
+  const minAmount = Number(current.minAmount || 0);
+  const maxAmount = Number(current.maxAmount || 0);
+  const singleChoice = maxAmount === 1;
+  if (minAmount === 0 && singleChoice) {
     const label = document.createElement("label");
     label.className = "gp-config-choice";
     const input = document.createElement("input");
     input.type = "radio";
     input.name = "gpProductComplement";
     input.value = -1;
-    input.checked = selected[step] === -1;
+    input.checked = (selected[step] || []).includes(-1);
     const details = document.createElement("span");
     const name = document.createElement("strong");
     name.textContent = /vender|carrinho/i.test(current.title)
@@ -143,40 +428,89 @@ function renderProductWizard() {
     label.append(input, details, price);
     choices.append(label);
   }
-  current.complements.forEach((complement) => {
-    const label = document.createElement("label");
-    label.className = "gp-config-choice";
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "gpProductComplement";
-    input.value = complement.id;
-    input.checked = selected[step] === complement.id;
-    const details = document.createElement("span");
-    const name = document.createElement("strong");
-    name.textContent = stripHtml(complement.title);
-    details.append(name);
-    if (complement.description) {
-      const description = document.createElement("small");
-      description.textContent = stripHtml(complement.description);
-      details.append(description);
-    }
-    const price = document.createElement("b");
-    price.textContent = money(complement.price);
-    label.append(input, details, price);
-    choices.append(label);
-  });
-  const chosen = selected.filter(Boolean).map((id) =>
-    steps.flatMap((entry) => entry.complements).find((item) => item.id === id),
-  ).filter(Boolean);
+  getVisibleProductComplements(product, current, selected)
+    .forEach((complement) => {
+      const label = document.createElement("label");
+      label.className = "gp-config-choice";
+      const input = document.createElement("input");
+      input.type = singleChoice ? "radio" : "checkbox";
+      input.name = "gpProductComplement";
+      input.value = complement.id;
+      input.checked = (selected[step] || []).includes(complement.id);
+      const details = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = stripHtml(complement.title);
+      details.append(name);
+      if (complement.description) {
+        const description = document.createElement("small");
+        description.textContent = stripHtml(complement.description);
+        details.append(description);
+      }
+      const price = document.createElement("b");
+      const selectedPlanId = getDigisatConectaPlanId(product, selected.flat());
+      const multiplier = complementBillingMultiplier(
+        product,
+        current,
+        complement,
+        selectedPlanId,
+      );
+      price.textContent =
+        multiplier === 12
+          ? `${money(complement.price)} / mês`
+          : money(complement.price);
+      label.append(input, details, price);
+      choices.append(label);
+    });
   const base = Number(String(product.price || 0).replace(",", ".")) || 0;
-  const total = base + chosen.reduce((sum, item) => sum + Number(item.price || 0), 0);
-  overlay.querySelector("#gpConfigTotal").textContent = `Total da configuração: ${money(total)}`;
+  const selectedComplementTotal = selected.reduce((total, ids, index) => {
+    const selectedStep = steps[index];
+    const selectedPlanId = getDigisatConectaPlanId(product, selected.flat());
+    const selectedPrices = (ids || [])
+      .filter((id) =>
+        getVisibleProductComplements(product, selectedStep, selected).some(
+          (complement) => complement.id === id,
+        ),
+      )
+      .map((id) => {
+        const complement = selectedStep.complements.find(
+          (item) => item.id === id,
+        );
+        return (
+          (Number(complement?.price) || 0) *
+          complementBillingMultiplier(
+            product,
+            selectedStep,
+            complement,
+            selectedPlanId,
+          )
+        );
+      });
+    return (
+      total +
+      selectedPrices.reduce((sum, price) => sum + price, 0)
+    );
+  }, 0);
+  const total = base + selectedComplementTotal;
+  const hasConectaMonthlyComplement = selected.some((ids) =>
+    (ids || []).some((id) =>
+      DIGISAT_CONECTA_MONTHLY_COMPLEMENT_IDS.has(Number(id)),
+    ),
+  );
+  const conectaPlanDuration = DIGISAT_CONECTA_PLAN_DURATIONS.get(
+    Number(getDigisatConectaPlanId(product, selected.flat())),
+  );
+  overlay.querySelector("#gpConfigTotal").textContent =
+    `Total da configuração${Number(product.id) === SAAS_PRODUCT_ID || hasConectaMonthlyComplement || conectaPlanDuration ? ` (${conectaPlanDuration || 12} meses)` : ""}: ${money(total)}`;
   const next = overlay.querySelector("#gpConfigNext");
-  next.textContent = step === steps.length - 1 ? "Adicionar ao carrinho" : "Continuar";
+  const isLastVisibleStep = visibleIndexes[visibleIndexes.length - 1] === step;
+  next.textContent =
+    isLastVisibleStep ? "Adicionar ao carrinho" : "Continuar";
   const back = overlay.querySelector("#gpConfigBack");
-  back.textContent = step === 0 ? "Cancelar" : "Voltar";
+  back.textContent = visibleStepNumber === 1 ? "Cancelar" : "Voltar";
   const error = overlay.querySelector("#gpConfigError");
-  error.hidden = !productWizard.validationVisible || Boolean(selected[step]);
+  error.hidden =
+    !productWizard.validationVisible ||
+    (selected[step] || []).filter((id) => id > 0).length >= minAmount;
   error.textContent = error.hidden ? "" : "Escolha uma opção para continuar.";
 }
 function openProductWizard(button, product) {
@@ -190,7 +524,7 @@ function openProductWizard(button, product) {
     product,
     steps,
     step: 0,
-    selected: Array(steps.length).fill(null),
+    selected: Array.from({ length: steps.length }, () => []),
     validationVisible: false,
   };
   renderProductWizard();
@@ -203,21 +537,50 @@ function openProductWizard(button, product) {
 }
 // Monta um item de pedido com produto, opções e complementos selecionados.
 function makeItem(productName, options = {}) {
-  const product = byId(CONFIG.productIds[productName]);
+  const product = byId(options.productId || CONFIG.productIds[productName]);
   if (!product)
     throw new Error(
       `Não foi possível localizar o produto original: ${productName}`,
     );
   const quantity = options.quantity || 1;
-  const complements = [];
   const selectedIds = options.complementIds || [];
-  product.complementSteps
-    ?.flatMap((step) => step.complements || [])
-    .filter((complement) => selectedIds.includes(complement.id))
-    .forEach((complement) => complements.push({ ...complement, amount: 1 }));
+  const selectedPlanId = getDigisatConectaPlanId(product, selectedIds);
+  const steps = (product.complementSteps || []).filter(
+    (step) => step.complements?.length,
+  );
+  const selectedComplementSteps = steps.reduce(
+    (steps, step, index) => {
+      const complements = (step.complements || [])
+        .filter((complement) => selectedIds.includes(complement.id))
+        .map((complement) => ({
+          id: complement.id,
+          price:
+            Number(complement.price || 0) *
+            complementBillingMultiplier(
+              product,
+              step,
+              complement,
+              selectedPlanId,
+            ),
+          amount: 1,
+          title: stripHtml(complement.title),
+        }));
+      if (complements.length) {
+        steps.push({ title: step.title, page: index + 1, complements });
+      }
+      return steps;
+    },
+    [],
+  );
+  const complements = selectedComplementSteps.flatMap((step) => step.complements);
   const basePrice = Number(String(product.price || 0).replace(",", ".")) || 0;
   const price =
-    basePrice + complements.reduce((sum, c) => sum + Number(c.price || 0), 0);
+    basePrice +
+    complements.reduce(
+      (sum, complement) =>
+        sum + Number(complement.price || 0) * Number(complement.amount || 1),
+      0,
+    );
   return {
     ...product,
     id: `${product.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -227,6 +590,7 @@ function makeItem(productName, options = {}) {
     price,
     amount: quantity,
     choosedProductComplements: complements,
+    selectedComplementSteps,
     observations: "",
   };
 }
@@ -237,9 +601,17 @@ function addConfiguredProduct(button, selectedComplementIds = []) {
     activeDiscount = 0;
     clearOrderPresentation();
   }
-  const name = button.dataset.product;
+  const productId =
+    Number(button.dataset.productId) || CONFIG.productIds[button.dataset.product];
+  const product = byId(productId);
+  const name = button.dataset.product || stripHtml(product?.title);
   let item;
-  item = makeItem(name, { complementIds: selectedComplementIds });
+  item = makeItem(name, {
+    productId,
+    complementIds: selectedComplementIds
+      .flatMap((ids) => ids || [])
+      .filter((id) => id > 0),
+  });
   // Mantém as escolhas de complementos e os respectivos IDs do catálogo NextGo original.
   const existing = cart.find(
     (x) =>
@@ -250,24 +622,171 @@ function addConfiguredProduct(button, selectedComplementIds = []) {
   if (existing && !item.choosedProductComplements?.length) existing.amount += 1;
   else cart.push(item);
   renderCart();
-  const launcher = document.getElementById("gpCartLauncher");
-  launcher?.classList.add("is-visible");
   const old = button.textContent;
   button.textContent = "Adicionado ✓";
   window.setTimeout(() => {
     button.innerHTML = old;
   }, 1400);
 }
-document
-  .querySelectorAll(".whatsapp-config, .whatsapp-fixed")
-  .forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const product = byId(CONFIG.productIds[button.dataset.product]);
-      if (!product || !openProductWizard(button, product))
-        addConfiguredProduct(button);
+function getProductPriceRange(product) {
+  const basePrice =
+    Number(String(product.price || 0).replace(",", ".")) || 0;
+  if (Number(product.id) === DIGISAT_CONECTA_PRODUCT_ID) {
+    const planStep = product.complementSteps.find(
+      (step) => Number(step.id) === DIGISAT_CONECTA_STEP_ID,
+    );
+    const packageStep = product.complementSteps.find(
+      (step) => Number(step.id) === DIGISAT_CONECTA_PACKAGE_STEP_ID,
+    );
+    const packagePrices = (packageStep?.complements || [])
+      .filter(
+        (complement) =>
+          !complement.supply_control || Number(complement.supply) > 0,
+      )
+      .map((complement) => Number(complement.price) || 0)
+      .sort((a, b) => b - a)
+      .slice(0, Number(packageStep?.maxAmount) || undefined);
+    const planTotals = (planStep?.complements || []).map((plan) => {
+      const planId = Number(plan.id);
+      const planPrice =
+        (Number(plan.price) || 0) *
+        complementBillingMultiplier(product, planStep, plan, planId);
+      const duration = DIGISAT_CONECTA_PLAN_DURATIONS.get(planId) || 1;
+      const maxPackages = packagePrices.reduce(
+        (sum, price) => sum + price * duration,
+        0,
+      );
+      return {
+        minimum: basePrice + planPrice,
+        maximum: basePrice + planPrice + maxPackages,
+      };
     });
+    return {
+      minimum: Math.min(...planTotals.map((total) => total.minimum)),
+      maximum: Math.max(...planTotals.map((total) => total.maximum)),
+    };
+  }
+  let minimum = basePrice;
+  let maximum = basePrice;
+  const steps = (product.complementSteps || []).filter(
+    (step) => step.complements?.length,
+  );
+
+  steps.forEach((step, index) => {
+    const prices = step.complements
+      .filter(
+        (complement) =>
+          !complement.supply_control || Number(complement.supply) > 0,
+      )
+      .map(
+        (complement) =>
+          (Number(complement.price) || 0) *
+          complementBillingMultiplier(product, step, complement),
+      )
+      .sort((a, b) => a - b);
+    const configuredMinimum = Number(step.minAmount) || 0;
+    const minimumChoices =
+      index === 0 && basePrice === 0 && configuredMinimum === 0
+        ? 1
+        : configuredMinimum;
+    const selectedMinimum = Math.min(minimumChoices, prices.length);
+    minimum += prices
+      .slice(0, selectedMinimum)
+      .reduce((total, price) => total + price, 0);
+
+    const configuredMaximum = Number(step.maxAmount) || 0;
+    const maximumChoices =
+      configuredMaximum === 0
+        ? prices.length
+        : Math.min(configuredMaximum, prices.length);
+    const maximumPrices =
+      configuredMaximum === 0 ? prices : prices.slice(-maximumChoices);
+    maximum += maximumPrices.reduce((total, price) => total + price, 0);
   });
+
+  return { minimum, maximum };
+}
+function renderSystemProducts() {
+  const categoryContainers = {
+    Sistemas: document.getElementById("gpProductsSistemas"),
+    Upgrade: document.getElementById("gpProductsUpgrade"),
+    Renovação: document.getElementById("gpProductsRenovacao"),
+  };
+  const products = catalog.filter((product) =>
+    ["Sistemas", "Upgrade", "Renovação"].includes(product.category_name),
+  );
+  products.forEach((product) => {
+    const container = categoryContainers[product.category_name];
+    if (!container) return;
+    const unavailable =
+      product.disable_product ||
+      (product.supply_control && Number(product.supply) <= 0);
+    if (unavailable) return;
+    const title = stripHtml(product.title) || "Descrição aqui";
+    const description = stripHtml(product.description) || "Descrição aqui";
+    const priceRange = getProductPriceRange(product);
+    const col = document.createElement("div");
+    col.className = "col-sm-6 col-xl-4";
+    const card = document.createElement("article");
+    card.className = "product-card h-100";
+    const art = document.createElement("div");
+    art.className = "product-art";
+    const imageUrl =
+      product.productImages?.[0]?.image || product.image_url || product.image;
+    if (imageUrl) {
+      const image = document.createElement("img");
+      image.className = "product-image";
+      image.src = imageUrl;
+      image.alt = `Imagem de ${title}`;
+      image.loading = "lazy";
+      art.append(image);
+    }
+    const tile = document.createElement("div");
+    tile.className = "art-tile";
+    tile.setAttribute("aria-hidden", "true");
+    tile.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M8 9h8M8 13h5"></path></svg>';
+    art.append(tile);
+    const body = document.createElement("div");
+    body.className = "product-body";
+    const tag = document.createElement("span");
+    tag.className = "product-tag";
+    tag.textContent = product.category_name || "Sistema";
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+    const text = document.createElement("p");
+    text.textContent = description;
+    const cost = document.createElement("div");
+    cost.className = "price";
+    cost.textContent =
+      `${money(priceRange.minimum)} ~ ${money(priceRange.maximum)}`;
+    const priceNote = document.createElement("p");
+    priceNote.className = "price-note";
+    priceNote.textContent =
+      Number(product.id) === SAAS_PRODUCT_ID
+        ? "Faixa calculada para o período mínimo de 12 meses; as configurações alteram o valor."
+        : "O valor final varia conforme o sistema e as configurações escolhidas.";
+    const button = document.createElement("a");
+    button.className = "btn-gp w-100 mt-3 whatsapp-config";
+    button.href = "#solucoes";
+    button.dataset.productId = product.id;
+    button.textContent = "Personalizar meu produto";
+    body.append(tag, heading, text, cost, priceNote, button);
+    card.append(art, body);
+    col.append(card);
+    container.append(col);
+  });
+}
+renderSystemProducts();
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".whatsapp-config, .whatsapp-fixed");
+  if (!button) return;
+  event.preventDefault();
+  const productId = Number(button.dataset.productId) ||
+    CONFIG.productIds[button.dataset.product];
+  const product = byId(productId);
+  if (!product || !openProductWizard(button, product)) addConfiguredProduct(button);
+});
 // Calcula o subtotal dos itens presentes no carrinho.
 function cartSubtotal() {
   return cart.reduce(
@@ -293,6 +812,11 @@ function couponEligibleSubtotal(coupon) {
       (sum, item) => sum + Number(item.price || 0) * Number(item.amount || 1),
       0,
     );
+}
+function couponPaymentIsAllowed(coupon, paymentType) {
+  return (
+    !coupon?.paymentTypes?.length || coupon.paymentTypes.includes(paymentType)
+  );
 }
 // Determina o desconto válido para um cupom e a data atual.
 function getCouponDiscount(coupon, now = new Date()) {
@@ -361,6 +885,15 @@ function recalculateCoupon() {
     activeDiscount = 0;
     return;
   }
+  if (!couponPaymentIsAllowed(activeCoupon, paymentSelect.value)) {
+    const removedCode = activeCoupon.code;
+    activeCoupon = null;
+    activeDiscount = 0;
+    document.getElementById("gpCoupon").value = "";
+    document.getElementById("gpCouponMessage").textContent =
+      `Cupom ${removedCode} removido porque não é válido para ${paymentSelect.value || "a forma de pagamento selecionada"}.`;
+    return;
+  }
   const result = getCouponDiscount(activeCoupon);
   if (result.error) {
     activeCoupon = null;
@@ -378,12 +911,58 @@ function clearOrderPresentation() {
   message.className = "";
   document.getElementById("gpCouponMessage").textContent = "";
 }
+function renderCouponSuggestions() {
+  const container = document.getElementById("gpCouponSuggestions");
+  if (!container) return;
+  container.replaceChildren();
+  const productIds = new Set(cart.map((item) => Number(item.productId)));
+  const suggestions = CONFIG.coupons.filter(
+    (coupon) =>
+      coupon.suggestInCart !== false &&
+      coupon.paymentTypes?.length > 0 &&
+      coupon.enabled !== false &&
+      !activeCoupon &&
+      (coupon.productIds || []).some((id) => productIds.has(Number(id))) &&
+      !getCouponDiscount(coupon).error,
+  );
+  if (!suggestions.length) {
+    if (cart.length > 0 && !activeCoupon) {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.className = "gp-coupon-empty";
+      emptyMessage.textContent =
+        "Nenhum cupom disponível nesta lista para os produtos e subtotal atuais.";
+      container.append(emptyMessage);
+      container.hidden = false;
+    } else {
+      container.hidden = true;
+    }
+    return;
+  }
+  suggestions.forEach((coupon) => {
+    const discount =
+      coupon.type === "percentage"
+        ? `${coupon.value}%`
+        : money(coupon.value);
+    const payment = coupon.paymentTypes.includes("Boleto")
+      ? " no PIX ou Boleto"
+      : " no cartão de crédito";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "gp-coupon-suggestion";
+    button.dataset.couponCode = coupon.code;
+    button.textContent = `${coupon.code} · ${discount} de desconto${payment} · mínimo ${money(coupon.minimum)}`;
+    container.append(button);
+  });
+  container.hidden = false;
+}
 // Atualiza a lista de itens, quantidades e totais do carrinho.
 function renderCart() {
+  document.getElementById("gpCouponIntro").hidden = cart.length === 0;
+  document
+    .getElementById("gpCartLauncher")
+    ?.classList.toggle("is-visible", cart.length > 0);
   recalculateCoupon();
-  const count = cart.reduce((sum, item) => sum + Number(item.amount || 1), 0);
-  document.getElementById("gpCartCount").textContent = count;
-  document.getElementById("gpCartTotal").textContent = money(cartTotal());
+  renderCouponSuggestions();
   document.getElementById("gpModalTotal").textContent = money(cartTotal());
   document.getElementById("gpSubtotal").textContent = money(cartSubtotal());
   document.getElementById("gpDiscount").textContent =
@@ -406,9 +985,33 @@ function renderCart() {
     const title = document.createElement("strong");
     title.textContent = stripHtml(item.title);
     info.append(title);
+    const sourceProduct = byId(item.productId);
+    const selectedConectaPlanId = getDigisatConectaPlanId(
+      sourceProduct,
+      (item.choosedProductComplements || []).map((complement) =>
+        Number(complement.id),
+      ),
+    );
+    const selectedConectaPlanDuration =
+      DIGISAT_CONECTA_PLAN_DURATIONS.get(Number(selectedConectaPlanId));
     (item.choosedProductComplements || []).forEach((c) => {
       const p = document.createElement("small");
-      p.textContent = `${stripHtml(c.title)} (+${money(c.price)})`;
+      const isSaasComplement = Number(item.productId) === SAAS_PRODUCT_ID;
+      const isConectaPlanComplement =
+        DIGISAT_CONECTA_PLAN_DURATIONS.has(Number(c.id));
+      const isConectaPackageComplement = sourceProduct?.complementSteps
+        ?.find((step) => Number(step.id) === DIGISAT_CONECTA_PACKAGE_STEP_ID)
+        ?.complements.some((complement) => complement.id === c.id);
+      const isConectaDurationComplement =
+        selectedConectaPlanDuration &&
+        (isConectaPlanComplement || isConectaPackageComplement);
+      p.textContent =
+        isSaasComplement || isConectaDurationComplement
+          ? `${stripHtml(c.title)} (12 meses: ${money(c.price)})`
+          : `${stripHtml(c.title)} (+${money(c.price)})`;
+      if (isConectaDurationComplement && !isSaasComplement) {
+        p.textContent = `${stripHtml(c.title)} (${selectedConectaPlanDuration} meses: ${money(c.price)})`;
+      }
       info.append(p);
     });
     const price = document.createElement("span");
@@ -560,6 +1163,7 @@ document.addEventListener("keydown", (e) => {
 const checkoutForm = document.getElementById("gpCheckoutForm");
 const addressFields = document.getElementById("gpAddressFields");
 const deliverySelect = checkoutForm.elements.delivery_method;
+const paymentSelect = checkoutForm.elements.payment_type;
 // Ajusta os campos do formulário conforme a modalidade de entrega.
 function setDeliveryFields() {
   const addressNeeded = deliverySelect.value === "delivery";
@@ -635,12 +1239,78 @@ function applyCoupon() {
     renderCart();
     return;
   }
+  if (
+    coupon.defaultPaymentType &&
+    !coupon.paymentTypes?.includes(coupon.defaultPaymentType)
+  ) {
+    activeCoupon = null;
+    activeDiscount = 0;
+    output.textContent = `A forma de pagamento do cupom ${code} está configurada incorretamente.`;
+    renderCart();
+    return;
+  }
   activeCoupon = coupon;
   activeDiscount = result.discount;
-  output.textContent = `Cupom ${code} aplicado: desconto de ${money(activeDiscount)}.`;
+  if (coupon.defaultPaymentType) {
+    const option = Array.from(paymentSelect.options).find(
+      (item) => item.value === coupon.defaultPaymentType,
+    );
+    if (!option) {
+      activeCoupon = null;
+      activeDiscount = 0;
+      output.textContent = `A forma de pagamento ${coupon.defaultPaymentType} não está disponível neste formulário.`;
+      renderCart();
+      return;
+    }
+    paymentSelect.value = option.value;
+    paymentSelect.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+  const alternativePayments = (coupon.paymentTypes || []).filter(
+    (type) => type !== coupon.defaultPaymentType,
+  );
+  const paymentMessage = coupon.defaultPaymentType
+    ? ` Pagamento selecionado: ${coupon.defaultPaymentType}.${
+        alternativePayments.length
+          ? ` Este cupom também aceita ${alternativePayments.join(" ou ")}.`
+          : ""
+      }`
+    : "";
+  output.textContent = `Cupom ${code} aplicado: desconto de ${money(activeDiscount)}.${paymentMessage}`;
   renderCart();
 }
 document.getElementById("gpApplyCoupon").addEventListener("click", applyCoupon);
+document.getElementById("gpCouponIntro").addEventListener("click", () => {
+  const input = document.getElementById("gpCoupon");
+  input.focus();
+  document.getElementById("gpCouponRow").scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
+});
+document
+  .getElementById("gpCouponSuggestions")
+  .addEventListener("click", (event) => {
+    const button = event.target.closest("[data-coupon-code]");
+    if (!button) return;
+    const couponInput = document.getElementById("gpCoupon");
+    couponInput.value = button.dataset.couponCode;
+    couponInput.focus();
+    applyCoupon();
+  });
+paymentSelect.addEventListener("change", () => {
+  if (
+    !activeCoupon ||
+    couponPaymentIsAllowed(activeCoupon, paymentSelect.value)
+  )
+    return;
+  const removedCode = activeCoupon.code;
+  activeCoupon = null;
+  activeDiscount = 0;
+  document.getElementById("gpCoupon").value = "";
+  document.getElementById("gpCouponMessage").textContent =
+    `Cupom ${removedCode} removido porque a forma de pagamento foi alterada.`;
+  renderCart();
+});
 document.getElementById("gpCoupon").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -675,6 +1345,18 @@ async function submitOrder(event) {
   const submit = document.getElementById("gpSubmitOrder");
   const message = document.getElementById("gpCheckoutMessage");
   const fields = Object.fromEntries(new FormData(form).entries());
+  if (!couponPaymentIsAllowed(activeCoupon, fields.payment_type)) {
+    const removedCode = activeCoupon.code;
+    activeCoupon = null;
+    activeDiscount = 0;
+    document.getElementById("gpCoupon").value = "";
+    document.getElementById("gpCouponMessage").textContent =
+      `Cupom ${removedCode} removido porque não é válido para ${fields.payment_type || "a forma de pagamento selecionada"}.`;
+    renderCart();
+    message.textContent =
+      "A forma de pagamento não corresponde ao cupom. O cupom foi removido; confira o total antes de enviar novamente.";
+    return;
+  }
   const phoneDigits = String(fields.phone || "").replace(/\D/g, "");
   const taxDigits = String(fields.tax_id || "").replace(/\D/g, "");
   if (phoneDigits.length < 10 || phoneDigits.length > 13) {
@@ -700,14 +1382,23 @@ async function submitOrder(event) {
   submit.textContent = "Enviando pedido…";
   message.className = "";
   message.textContent = "Conectando à NextGo Orders…";
-  const items = cart.map((item) => ({
-    ...item,
-    title: stripHtml(item.title),
-    description: stripHtml(item.description),
-    choosedProductComplements: (item.choosedProductComplements || []).map(
-      (c) => ({ ...c, title: stripHtml(c.title) }),
-    ),
-  }));
+  const items = cart.map((item) => {
+    const product = byId(item.productId);
+    return {
+      ...item,
+      title: stripHtml(item.title),
+      description: stripHtml(item.description),
+      // O NextGo recebe o preço base e os complementos em campos separados.
+      price:
+        Number(
+          String(product?.price ?? item.price ?? 0).replace(",", "."),
+        ) || 0,
+      choosedProductComplements: (item.choosedProductComplements || []).map(
+        (complement) => ({ ...complement, title: stripHtml(complement.title) }),
+      ),
+      selectedComplementSteps: item.selectedComplementSteps || [],
+    };
+  });
   const payload = {
     total_price: Number(
       (cartSubtotal() + Number(CONFIG.freight.price || 0)).toFixed(2),
@@ -770,7 +1461,7 @@ async function submitOrder(event) {
           ? safeHttpsUrl(data.redirectUrl)
           : null;
       const completedOrderTotal = cartTotal();
-      const customerMessage = `Olá, fiz um pedido na Guia Panorama. Nome: ${fields.name.trim()}. Pedido: #${data.orderId}. Total: ${money(cartTotal())}. Forma de pagamento: ${fields.payment_type}.${paymentUrl ? ` Link para pagamento: ${paymentUrl}` : ""} Acompanhe: ${statusLink}`;
+      const customerMessage = `Olá, fiz um pedido na Guia Panorama. Nome: ${fields.name.trim()}. Pedido: #${data.orderId}. Total: ${money(completedOrderTotal)}. Forma de pagamento: ${fields.payment_type}. Subdomínio informado: ${fields.delivery_extra_info.trim()}.${paymentUrl ? ` Link para pagamento: ${paymentUrl}` : ""} Acompanhe: ${statusLink}`;
       const storeLink = storeWhatsappLink(customerMessage);
       cart.splice(0, cart.length);
       activeCoupon = null;

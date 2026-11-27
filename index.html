@@ -74,7 +74,7 @@
             "name": "Quais soluções a Guia Panorama oferece?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "A loja apresenta cinco soluções: Cardápio Digital, Catálogo Digital, Cartão de Visitas Digital, SmallBio e Convite Digital. Cada uma atende a uma necessidade diferente de apresentação e compartilhamento de informações."
+              "text": "A loja apresenta sites mobiles, sistemas, upgrades e renovações. Cada opção pode ser configurada com os complementos disponíveis no catálogo."
             }
           },
           {
@@ -98,7 +98,7 @@
             "name": "Quais são os preços e as formas de pagamento?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Os valores informados nesta página são: Cartão de Visitas Digital, SmallBio e Convite Digital por R$ 350,00. Cardápios e catálogos variam conforme a quantidade de produtos e os complementos escolhidos. Ao adicionar uma solução ao carrinho, você seleciona uma opção em cada etapa e confere o valor antes de incluir o pedido."
+              "text": "Cardápio Digital e Catálogo Digital aparecem por R$ 499,00. Cartão de Visitas Digital, SmallBio e Convite Digital custam R$ 350,00. O valor final dos produtos configuráveis varia conforme o sistema e os complementos escolhidos."
             }
           },
           {
@@ -390,220 +390,349 @@
             </div>
             <div class="col-lg-4 text-lg-end">
               <span class="muted-note"
-                >Cinco soluções para diferentes momentos e objetivos.</span
+                >Soluções digitais, sistemas e serviços.</span
               >
             </div>
           </div>
 
-          <div class="row g-4">
-            <div class="col-sm-6 col-xl-4">
-              <article class="product-card">
-                <div class="product-art" data-image-fallback="cardapio-digital">
-                  <img
-                    class="product-image"
-                    src="assets/img/cardapio-digital.png"
-                    alt="Exemplo visual de Cardápio Digital"
-                    loading="lazy"
-                  />
-                  <div class="art-tile" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M4 5h16v15H4z"></path>
-                      <path d="M8 9h8M8 13h8M8 17h4"></path>
-                      <path d="M8 2v3M16 2v3"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="product-body">
-                  <span class="product-tag">Para alimentação</span>
-                  <h3>Cardápio Digital</h3>
-                  <p>
-                    Apresente pratos, produtos e categorias em um cardápio
-                    online personalizado, facilitando o acesso às informações do
-                    seu estabelecimento.
-                  </p>
-                  <a class="btn-gp w-100 mt-3 whatsapp-config" data-product="Cardápio Digital" href="#solucoes">Adicionar ao carrinho <span aria-hidden="true">＋</span></a>
-                </div>
-              </article>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-              <article class="product-card">
-                <div
-                  class="product-art art-2"
-                  data-image-fallback="catalogo-digital"
+          <div class="gp-product-tabs-shell mb-4">
+            <ul
+              class="nav nav-pills gp-product-tabs"
+              id="gpProductTabs"
+              role="tablist"
+              aria-label="Categorias de produtos"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="tab-sites-mobiles"
+                  data-bs-toggle="pill"
+                  data-bs-target="#sites-mobiles"
+                  type="button"
+                  role="tab"
+                  aria-controls="sites-mobiles"
+                  aria-selected="true"
                 >
-                  <img
-                    class="product-image"
-                    src="assets/img/catalogo-digital.png"
-                    alt="Exemplo visual de Catálogo Digital"
-                    loading="lazy"
-                  />
-                  <div class="art-tile" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                      <path d="m4 16 5-5 4 4 3-3 4 4M8 8h.01"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="product-body">
-                  <span class="product-tag">Para comércio</span>
-                  <h3>Catálogo Digital</h3>
-                  <p>
-                    Organize e divulgue seus produtos em um catálogo online com
-                    imagens e informações reunidas em uma apresentação fácil de
-                    compartilhar.
-                  </p>
-                  <a class="btn-gp w-100 mt-3 whatsapp-config" data-product="Catálogo Digital" href="#solucoes">Adicionar ao carrinho <span aria-hidden="true">＋</span></a>
-                </div>
-              </article>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-              <article class="product-card">
-                <div
-                  class="product-art art-3"
-                  data-image-fallback="cartao-visitas-digital"
+                  Sites Mobiles
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="tab-sistemas"
+                  data-bs-toggle="pill"
+                  data-bs-target="#sistemas"
+                  type="button"
+                  role="tab"
+                  aria-controls="sistemas"
+                  aria-selected="false"
                 >
-                  <img
-                    class="product-image"
-                    src="assets/img/cartao-visitas-digital.png"
-                    alt="Exemplo visual de Cartão de Visitas Digital"
-                    loading="lazy"
-                  />
-                  <div class="art-tile" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect x="4" y="3" width="16" height="18" rx="2"></rect>
-                      <circle cx="12" cy="9" r="3"></circle>
-                      <path d="M8 16h8M9 19h6"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="product-body">
-                  <span class="product-tag">Para profissionais</span>
-                  <h3>Cartão de Visitas Digital</h3>
-                  <p>
-                    Facilite o acesso aos seus contatos e canais profissionais
-                    com uma apresentação digital que você pode compartilhar com
-                    praticidade.
-                  </p>
-                  <div class="price">R$ 350,00</div>
-                  <a
-                    class="btn-gp w-100 mt-3 whatsapp-fixed"
-                    data-product="Cartão de Visitas Digital"
-                    href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20Cart%C3%A3o%20de%20Visitas%20Digital."
-                    >Adicionar ao carrinho</a
-                  >
-                </div>
-              </article>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-              <article class="product-card">
-                <div class="product-art art-4" data-image-fallback="smallbio">
-                  <img
-                    class="product-image"
-                    src="assets/img/smallbio.png"
-                    alt="Exemplo visual do SmallBio"
-                    loading="lazy"
-                  />
-                  <div class="art-tile" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"
-                      ></path>
-                      <path
-                        d="M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20.1l1.1-1.1"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="product-body">
-                  <span class="product-tag">Para presença online</span>
-                  <h3>SmallBio</h3>
-                  <p>
-                    Reúna seus principais links em uma página personalizada para
-                    conectar redes sociais, conteúdos e canais profissionais em
-                    um só lugar.
-                  </p>
-                  <div class="price">R$ 350,00</div>
-                  <a
-                    class="btn-gp w-100 whatsapp-fixed"
-                    data-product="SmallBio"
-                    href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20SmallBio."
-                    >Adicionar ao carrinho</a
-                  >
-                </div>
-              </article>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-              <article class="product-card">
-                <div
-                  class="product-art art-5"
-                  data-image-fallback="convite-digital"
+                  Sistema
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="tab-upgrade"
+                  data-bs-toggle="pill"
+                  data-bs-target="#upgrade"
+                  type="button"
+                  role="tab"
+                  aria-controls="upgrade"
+                  aria-selected="false"
                 >
-                  <img
-                    class="product-image"
-                    src="assets/img/convite-digital.png"
-                    alt="Exemplo visual de Convite Digital"
-                    loading="lazy"
-                  />
-                  <div class="art-tile" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                      <path d="M7 3v4M17 3v4M3 10h18"></path>
-                      <path d="m9 15 2 2 4-4"></path>
-                    </svg>
+                  Upgrade
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="tab-renovacao"
+                  data-bs-toggle="pill"
+                  data-bs-target="#renovacao"
+                  type="button"
+                  role="tab"
+                  aria-controls="renovacao"
+                  aria-selected="false"
+                >
+                  Renovação
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content gp-product-pages" id="gpProductPages">
+            <div
+              class="tab-pane fade show active"
+              id="sites-mobiles"
+              role="tabpanel"
+              aria-labelledby="tab-sites-mobiles"
+              tabindex="0"
+            >
+              <div class="row g-4">
+              <div class="col-sm-6 col-xl-4">
+                <article class="product-card">
+                  <div class="product-art" data-image-fallback="cardapio-digital">
+                    <img
+                      class="product-image"
+                      src="assets/img/cardapio-digital.png"
+                      alt="Exemplo visual de Cardápio Digital"
+                      loading="lazy"
+                    />
+                    <div class="art-tile" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M4 5h16v15H4z"></path>
+                        <path d="M8 9h8M8 13h8M8 17h4"></path>
+                        <path d="M8 2v3M16 2v3"></path>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div class="product-body">
-                  <span class="product-tag">Para ocasiões especiais</span>
-                  <h3>Convite Digital</h3>
-                  <p>
-                    Compartilhe os detalhes do seu evento com um convite
-                    personalizado, pensado para apresentar as informações de
-                    forma prática e especial.
-                  </p>
-                  <div class="price">R$ 350,00</div>
-                  <a
-                    class="btn-gp w-100 whatsapp-fixed"
-                    data-product="Convite Digital"
-                    href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20Convite%20Digital."
-                    >Adicionar ao carrinho</a
+                  <div class="product-body">
+                    <span class="product-tag">Para alimentação</span>
+                    <h3>Cardápio Digital</h3>
+                    <p>
+                      Apresente pratos, produtos e categorias em um cardápio
+                      online personalizado, facilitando o acesso às informações do
+                      seu estabelecimento.
+                    </p>
+                    <div class="price">R$ 499,00</div>
+                    <p class="price-note">
+                      O valor final varia conforme a configuração escolhida.
+                    </p>
+                    <a
+                      class="btn-gp w-100 mt-3 whatsapp-config"
+                      data-product="Cardápio Digital"
+                      href="#solucoes"
+                      >Personalizar meu produto</a
+                    >
+                  </div>
+                </article>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <article class="product-card">
+                  <div
+                    class="product-art art-2"
+                    data-image-fallback="catalogo-digital"
                   >
-                </div>
-              </article>
+                    <img
+                      class="product-image"
+                      src="assets/img/catalogo-digital.png"
+                      alt="Exemplo visual de Catálogo Digital"
+                      loading="lazy"
+                    />
+                    <div class="art-tile" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                        <path d="m4 16 5-5 4 4 3-3 4 4M8 8h.01"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="product-body">
+                    <span class="product-tag">Para comércio</span>
+                    <h3>Catálogo Digital</h3>
+                    <p>
+                      Organize e divulgue seus produtos em um catálogo online com
+                      imagens e informações reunidas em uma apresentação fácil de
+                      compartilhar.
+                    </p>
+                    <div class="price">R$ 499,00</div>
+                    <p class="price-note">
+                      O valor final varia conforme a configuração escolhida.
+                    </p>
+                    <a
+                      class="btn-gp w-100 mt-3 whatsapp-config"
+                      data-product="Catálogo Digital"
+                      href="#solucoes"
+                      >Personalizar meu produto</a
+                    >
+                  </div>
+                </article>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <article class="product-card">
+                  <div
+                    class="product-art art-3"
+                    data-image-fallback="cartao-visitas-digital"
+                  >
+                    <img
+                      class="product-image"
+                      src="assets/img/cartao-visitas-digital.png"
+                      alt="Exemplo visual de Cartão de Visitas Digital"
+                      loading="lazy"
+                    />
+                    <div class="art-tile" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                        <circle cx="12" cy="9" r="3"></circle>
+                        <path d="M8 16h8M9 19h6"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="product-body">
+                    <span class="product-tag">Para profissionais</span>
+                    <h3>Cartão de Visitas Digital</h3>
+                    <p>
+                      Facilite o acesso aos seus contatos e canais profissionais
+                      com uma apresentação digital que você pode compartilhar com
+                      praticidade.
+                    </p>
+                    <div class="price">R$ 350,00</div>
+                    <p class="price-note">
+                      O valor final varia conforme a configuração escolhida.
+                    </p>
+                    <a
+                      class="btn-gp w-100 mt-3 whatsapp-fixed"
+                      data-product="Cartão de Visitas Digital"
+                      href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20Cart%C3%A3o%20de%20Visitas%20Digital."
+                      >Personalizar meu produto</a
+                    >
+                  </div>
+                </article>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <article class="product-card">
+                  <div class="product-art art-4" data-image-fallback="smallbio">
+                    <img
+                      class="product-image"
+                      src="assets/img/smallbio.png"
+                      alt="Exemplo visual do SmallBio"
+                      loading="lazy"
+                    />
+                    <div class="art-tile" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"
+                        ></path>
+                        <path
+                          d="M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20.1l1.1-1.1"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="product-body">
+                    <span class="product-tag">Para presença online</span>
+                    <h3>SmallBio</h3>
+                    <p>
+                      Reúna seus principais links em uma página personalizada para
+                      conectar redes sociais, conteúdos e canais profissionais em
+                      um só lugar.
+                    </p>
+                    <div class="price">R$ 350,00</div>
+                    <p class="price-note">
+                      O valor final varia conforme a configuração escolhida.
+                    </p>
+                    <a
+                      class="btn-gp w-100 whatsapp-fixed"
+                      data-product="SmallBio"
+                      href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20SmallBio."
+                      >Personalizar meu produto</a
+                    >
+                  </div>
+                </article>
+              </div>
+              <div class="col-sm-6 col-xl-4">
+                <article class="product-card">
+                  <div
+                    class="product-art art-5"
+                    data-image-fallback="convite-digital"
+                  >
+                    <img
+                      class="product-image"
+                      src="assets/img/convite-digital.png"
+                      alt="Exemplo visual de Convite Digital"
+                      loading="lazy"
+                    />
+                    <div class="art-tile" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                        <path d="M7 3v4M17 3v4M3 10h18"></path>
+                        <path d="m9 15 2 2 4-4"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="product-body">
+                    <span class="product-tag">Para ocasiões especiais</span>
+                    <h3>Convite Digital</h3>
+                    <p>
+                      Compartilhe os detalhes do seu evento com um convite
+                      personalizado, pensado para apresentar as informações de
+                      forma prática e especial.
+                    </p>
+                    <div class="price">R$ 350,00</div>
+                    <p class="price-note">NextGo Events incluído.</p>
+                    <a
+                      class="btn-gp w-100 whatsapp-fixed"
+                      data-product="Convite Digital"
+                      href="https://wa.me/5518991938657?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20o%20Convite%20Digital."
+                      >Personalizar meu produto</a
+                    >
+                  </div>
+                </article>
+              </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="sistemas"
+              role="tabpanel"
+              aria-labelledby="tab-sistemas"
+              tabindex="0"
+            >
+              <div class="row g-4" id="gpProductsSistemas"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="upgrade"
+              role="tabpanel"
+              aria-labelledby="tab-upgrade"
+              tabindex="0"
+            >
+              <div class="row g-4" id="gpProductsUpgrade"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="renovacao"
+              role="tabpanel"
+              aria-labelledby="tab-renovacao"
+              tabindex="0"
+            >
+              <div class="row g-4" id="gpProductsRenovacao"></div>
             </div>
           </div>
+
           <p class="muted-note mt-4 mb-0">
             O Cartão por Aproximação com tecnologia NFC está temporariamente
-            pausado no catálogo. Clique em “Adicionar ao carrinho” para escolher
+            pausado no catálogo. Clique em “Personalizar meu produto” para escolher
             os complementos disponíveis em cada etapa.
           </p>
         </div>
@@ -884,11 +1013,11 @@
                   data-bs-parent="#faqAccordion"
                 >
                   <div class="accordion-body">
-                    Os valores informados nesta página são: Cartão de Visitas
-                    Digital, SmallBio e Convite Digital por R$ 350,00. O valor
-                    de cada solução depende dos complementos disponíveis. Ao
-                    clicar em “Adicionar ao carrinho”, você escolhe uma opção
-                    em cada etapa e confere o total antes de incluir o pedido.
+                    Cardápio Digital e Catálogo Digital aparecem por R$ 499,00.
+                    Cartão de Visitas Digital, SmallBio e Convite Digital custam
+                    R$ 350,00. O valor final dos sistemas varia conforme as
+                    configurações escolhidas. Clique em “Personalizar meu
+                    produto” para consultar as opções e o total.
                   </div>
                 </div>
               </div>
@@ -988,10 +1117,28 @@
       </section>
     </main>
 
-    <div id="gpCartLauncher" class="gp-cart-launcher" aria-live="polite">
-      <button type="button" id="gpOpenCart" class="btn-gp">
-        Carrinho (<span id="gpCartCount">0</span>) ·
-        <span id="gpCartTotal">R$ 0,00</span>
+    <div id="gpCartLauncher" class="gp-cart-launcher">
+      <button
+        type="button"
+        id="gpOpenCart"
+        class="btn-gp"
+        aria-label="Abrir carrinho de compras"
+        title="Abrir carrinho de compras"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L22 7H6" />
+          <circle cx="10" cy="20" r="1" />
+          <circle cx="18" cy="20" r="1" />
+        </svg>
       </button>
     </div>
     <div id="gpCheckoutModal" class="gp-modal" aria-hidden="true">
@@ -1013,6 +1160,14 @@
           ×
         </button>
         <h2 id="gpCheckoutTitle">Seu pedido</h2>
+        <button
+          type="button"
+          id="gpCouponIntro"
+          class="gp-coupon-intro"
+          hidden
+        >
+          Verificar os cupons disponíveis para este produto
+        </button>
         <div id="gpCartItems"></div>
         <div class="gp-total-row">
           <span>Subtotal</span><strong id="gpSubtotal">R$ 0,00</strong>
@@ -1126,7 +1281,7 @@
             <strong>https://nomedaminhaempresa.smallbio.com.br</strong>
           </p>
           <label>Observações<input name="extra_info" maxlength="500" /></label>
-          <div class="gp-coupon-row">
+          <div class="gp-coupon-row" id="gpCouponRow">
             <label for="gpCoupon">Cupom de desconto</label>
             <div>
               <input
@@ -1139,6 +1294,12 @@
               </button>
             </div>
             <p id="gpCouponMessage" role="status" aria-live="polite"></p>
+            <div
+              id="gpCouponSuggestions"
+              class="gp-coupon-suggestions"
+              aria-label="Cupons disponíveis para os produtos selecionados"
+              hidden
+            ></div>
           </div>
           <p class="gp-freight-note">
             Entrega Digital: o site mobile será publicado com o sub domínio
